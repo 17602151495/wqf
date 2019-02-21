@@ -4,7 +4,8 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{F00DF430-1DA2-423C-876A-6B4D4E3846F6}" Name="mysql" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="mysql.pdm"/>
+		<Model Expanded="Yes" ID="{F00DF430-1DA2-423C-876A-6B4D4E3846F6}" Loaded="No" Name="mysql" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="mysql.pdm"/>
+		<Model Expanded="Yes" ID="{F00DF430-1DA2-423C-876A-6B4D4E3846F6}" Name="mysql" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="mysql.pdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
