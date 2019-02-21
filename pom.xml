@@ -8,7 +8,7 @@
     <artifactId>wzlue-imports</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <modules>
+    <modules> 
         <module>wzlue-common</module>
         <module>wzlue-generator</module>
         <module>wzlue-sys</module>
