@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>组织架构</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../../css/all-skins.min.css">
+    <link rel="stylesheet" href="../../plugins/treegrid/jquery.treegrid.css">
+    <link rel="stylesheet" href="../../css/elementui.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+
+    <style>
+        .el-card.shadow1{
+            box-shadow:0 0 0 0!important;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue-light sidebar-mini">
+<div class="wrapper" id="rrapp" v-cloak>
+    <!--头部-->
+    <main-header></main-header>
+    <!--导航路由-->
+    <main-router></main-router>
+    <section class="content content-wrapper">
+        <h4 class="title-h4">组织架构</h4>
+        <el-row :gutter="30" v-show="showList">
+            <el-col :span="8">
+                <el-card class="box-card" style="min-height: 400px;overflow:auto">
+                    <el-tree
+                            :data="deptList"
+                            default-expand-all
+                            node-key="id"
+                            ref="tree"
+                            highlight-current
+                            check-strictly
+                            @check-change="handleClick"
+                            @node-click="reloadTree"
+                            :props="defaultProps">
+                    </el-tree>
+                </el-card>
+            </el-col>
+            <el-col :span="16">
+                <el-card class="shadow" style="min-height: 437px;overflow:auto">
+                    <el-button v-if="hasPermission('sys:sysdept:save')" type="success" plain @click="add">
+                        <i class="fa fa-plus">&nbsp;新增</i></el-button>
+                    <el-button v-if="hasPermission('sys:sysdept:delete')" type="danger" plain @click="del('menu')">
+                        <i class="fa fa-trash-o">&nbsp;删除</i></el-button>
+                    <el-card class="shadow" style="border: 0px;">
+                        <div slot="header" class="clearfix">
+                            <i class="title_left">架构信息</i>
+                        </div>
+                        <el-form :model="newNode" :rules="rules" ref="newNode" label-width="150px" style="width: 100%">
+                            <el-row class="m-bottom-20">
+                                <el-col :span="12">
+                                    <el-form-item label="机构名称" prop="name" ref="name1" style="width: 100%;" >
+                                        <el-input v-model="newNode.name" placeholder="菜单名称或按钮名称" maxlength="20"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-form-item label="创建时间">
+                                        <el-date-picker
+                                                style="width: 100%;"
+                                                v-model="newNode.createDate"
+                                                type="date"
+                                                placeholder="无"
+                                                readonly
+                                                value-format="yyyy-MM-dd">
+                                        </el-date-picker>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row class="m-bottom-20">
+                                <el-col :span="12">
+                                    <el-form-item label="机构类型" prop="deptType">
+                                        <el-radio-group v-model="newNode.deptType" style="width: 100%;">
+                                            <el-radio label="0">部门</el-radio>
+                                            <el-radio label="1">公司</el-radio>
+                                        </el-radio-group>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-form-item label="更新时间">
+                                        <el-date-picker
+                                                style="width: 100%;"
+                                                v-model="newNode.updateDate"
+                                                type="date"
+                                                placeholder="无"
+                                                readonly
+                                                value-format="yyyy-MM-dd">
+                                        </el-date-picker>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+
+                            <el-row class="m-bottom-20">
+                                <el-col :span="12">
+                                    <el-form-item label="上级机构" prop="newParentId" style="width: 100%;">
+                                        <el-cascader
+                                                style="width: 100%"
+                                                :show-all-levels="false"
+                                                :options="deptList"
+                                                :props="props"
+                                                change-on-select
+                                                clearable="true"
+                                                v-model="newNode.newParentId">
+                                        </el-cascader>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-form-item label="排序号" prop="orderNum" ref="orderNum"  v-if="menu.type != 2" style="width:100%;">
+                                        <el-input type="number" v-model="newNode.orderNum" placeholder="排序号"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+
+                            <el-row style="text-align: left;">
+                                <el-form-item>
+                                    <el-button type="primary" plain @click="update('newNode')">保存</el-button>
+                                    <el-button type="warning" plain @click="reload('newNode')">取消</el-button>
+                                </el-form-item>
+                            </el-row>
+                        </el-form>
+                    </el-card>
+                </el-card>
+            </el-col>
+        </el-row>
+
+
+        <!--新增模态框-->
+        <el-dialog :title="title" :visible.sync="dialogVisible">
+            <el-form :model="menu" :rules="rules" ref="menu" label-width="150px" style="width: 100%">
+                <el-row class="m-bottom-20">
+                    <el-col :span="18">
+                        <el-form-item label="机构名称" prop="name" ref="name1" style="width: 100%;" >
+                            <el-input v-model="menu.name" placeholder="菜单名称或按钮名称" maxlength="20"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row class="m-bottom-20">
+                    <el-col :span="18">
+                        <el-form-item label="机构类型" prop="deptType">
+                            <el-radio-group v-model="menu.deptType" style="width: 100%;">
+                                <el-radio label="0">部门</el-radio>
+                                <el-radio label="1">公司</el-radio>
+                            </el-radio-group>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row class="m-bottom-20">
+                    <el-col :span="18">
+                        <el-form-item label="上级机构" prop="newParentId" style="width: 100%;">
+                            <el-cascader
+                                    style="width: 100%"
+                                    :show-all-levels="false"
+                                    :options="deptList"
+                                    :props="props"
+                                    change-on-select
+                                    clearable="true"
+                                    v-model="menu.newParentId">
+                            </el-cascader>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row class="m-bottom-20">
+                    <el-col :span="18">
+                        <el-form-item label="排序号" prop="orderNum" ref="orderNum"  v-if="menu.type != 2" style="width:100%;">
+                            <el-input type="number" v-model="menu.orderNum" placeholder="排序号"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row style="text-align: left;">
+                    <el-form-item>
+                        <el-button type="primary" plain @click="save('menu')">保存</el-button>
+                        <el-button type="warning" plain @click="reload('menu')">返回</el-button>
+                    </el-form-item>
+                </el-row>
+            </el-form>
+        </el-dialog>
+
+    </section>
+    <main-footer></main-footer>
+</div>
+
+<!-- 选择菜单 -->
+<div id="menuLayer" style="display: none;padding:10px;">
+    <ul id="menuTree" class="ztree"></ul>
+</div>
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../libs/bootstrap.min.js"></script>
+<script src="../../libs/vue.min.js"></script>
+<script src="../../libs/bootstrap-table.min.js"></script>
+<script src="../../libs/app.js"></script>
+<script src="../../libs/validator.js"></script>
+<script src="../../plugins/element/elementui.min.js"></script>
+
+<script src="../../plugins/layer/layer.js"></script>
+<script src="../../plugins/treegrid/jquery.treegrid.min.js"></script>
+<script src="../../plugins/treegrid/jquery.treegrid.bootstrap3.js"></script>
+<script src="../../plugins/treegrid/jquery.treegrid.extension.js"></script>
+<script src="../../plugins/treegrid/tree.table.js"></script>
+<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/components.js"></script>
+
+<script src="../../js/modules/sys/dept.js"></script>
+</body>
+</html>

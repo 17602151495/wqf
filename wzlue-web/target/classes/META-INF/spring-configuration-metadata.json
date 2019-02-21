@@ -1,0 +1,58 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.wzlue.imports.web.common.config.FTPConfiguration$FtpConfigProperties",
+      "name": "FTP",
+      "type": "com.wzlue.imports.web.common.config.FTPConfiguration$FtpConfigProperties"
+    },
+    {
+      "sourceType": "com.wzlue.imports.web.common.datasources.DynamicDataSourceConfig",
+      "name": "spring.datasource.druid.first",
+      "sourceMethod": "firstDataSource()",
+      "type": "javax.sql.DataSource"
+    },
+    {
+      "sourceType": "com.wzlue.imports.web.common.datasources.DynamicDataSourceConfig",
+      "name": "spring.datasource.druid.second",
+      "sourceMethod": "secondDataSource()",
+      "type": "javax.sql.DataSource"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.wzlue.imports.web.common.config.FTPConfiguration$FtpConfigProperties",
+      "defaultValue": 8096,
+      "name": "FTP.buffer-size",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.wzlue.imports.web.common.config.FTPConfiguration$FtpConfigProperties",
+      "defaultValue": "localhost",
+      "name": "FTP.host",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.wzlue.imports.web.common.config.FTPConfiguration$FtpConfigProperties",
+      "defaultValue": 0,
+      "name": "FTP.initial-size",
+      "description": "初始化连接数",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.wzlue.imports.web.common.config.FTPConfiguration$FtpConfigProperties",
+      "name": "FTP.password",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.wzlue.imports.web.common.config.FTPConfiguration$FtpConfigProperties",
+      "name": "FTP.port",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.wzlue.imports.web.common.config.FTPConfiguration$FtpConfigProperties",
+      "name": "FTP.username",
+      "type": "java.lang.String"
+    }
+  ]
+}

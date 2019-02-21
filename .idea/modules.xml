@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/wzlue-common/wzlue-common.iml" filepath="$PROJECT_DIR$/wzlue-common/wzlue-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wzlue-generator/wzlue-generator.iml" filepath="$PROJECT_DIR$/wzlue-generator/wzlue-generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wzlue-imports.iml" filepath="$PROJECT_DIR$/wzlue-imports.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wzlue-schedule/wzlue-schedule.iml" filepath="$PROJECT_DIR$/wzlue-schedule/wzlue-schedule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wzlue-sys/wzlue-sys.iml" filepath="$PROJECT_DIR$/wzlue-sys/wzlue-sys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wzlue-web/wzlue-web.iml" filepath="$PROJECT_DIR$/wzlue-web/wzlue-web.iml" />
+    </modules>
+  </component>
+</project>

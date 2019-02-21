@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="wzlue-common" />
+        <module name="wzlue-generator" />
+        <module name="wzlue-schedule" />
+        <module name="wzlue-sys" />
+        <module name="wzlue-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="wzlue-commodity" target="1.8" />
+      <module name="wzlue-common" target="1.8" />
+      <module name="wzlue-company" target="1.8" />
+      <module name="wzlue-contract" target="1.8" />
+      <module name="wzlue-generator" target="1.8" />
+      <module name="wzlue-import-excel" target="1.8" />
+      <module name="wzlue-imports" target="1.8" />
+      <module name="wzlue-merchant-serviceprovider" target="1.8" />
+      <module name="wzlue-message" target="1.8" />
+      <module name="wzlue-order" target="1.8" />
+      <module name="wzlue-schedule" target="1.8" />
+      <module name="wzlue-storage" target="1.8" />
+      <module name="wzlue-sys" target="1.8" />
+      <module name="wzlue-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
