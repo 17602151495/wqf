@@ -17,6 +17,7 @@
       <module name="wqf" target="1.8" />
       <module name="wzlue-common" target="1.8" />
       <module name="wzlue-generator" target="1.8" />
+      <module name="wzlue-imports" target="1.8" />
       <module name="wzlue-schedule" target="1.8" />
       <module name="wzlue-sys" target="1.8" />
       <module name="wzlue-web" target="1.8" />
